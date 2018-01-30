@@ -27,12 +27,10 @@ http://api.immobilienscout24.de/our-apis/valuation/reference-price-api.html
 
 The documentation is sparse and not very helpful and they have incomplete information for the kinds of URLS you should request Important things to know:
 
-•	The housing data is based on rental apartments
-•	The assumed living area is 100 square meters
-•	The price is the price per square meter in a given neighborhood
-•	ImmoScout does not specify, but this should be 2016 data. When I was looking into manually getting the data, by looking up an address and scrolling down to “historical information,” the most current date they have housing data is for March 2016, so I assume that our data is current as of March 2016 (your old data is from 2011, just FYI)
-•	ImmoScout now only lists price information by one decimal (previously it was two)
+*	The housing data is based on rental apartments
+*	The assumed living area is 100 square meters
+*	The price is the price per square meter in a given neighborhood
+*	ImmoScout does not specify, but the historical data should be updated to about 3 months prior to 
+*	ImmoScout now only lists price information by one decimal (previously it was two)
 
-With this, I ran a R script, ImmoScout_API_PriceHistory_JUNE_LAB, overnight in the computer lab at Hertie. It’s a simple script that logs into our API key and gets access and authorization to get “live” data from ImmoScout. Then, I import a csv file which has the universe of our geocoded addresses (I eliminated duplicates). In this file there are 10 unique API URL links per geocode/patient address. The reason for this is because ImmoScout requires you specify an approximate rental price when requesting data. If you guess too low, you won’t get any data. The short of the long story is that it doesn’t matter for our variable of interest since it is average neighborhood price, BUT – ImmoScout returns no data/error if you specific a price that has no match. Hence, I have a loop that runs 10 test prices for each address in order to collect the data we need. I checked and the average neighborhood price is always the same for a given address no matter what price is specified.
-
-The raw data from the R scrape is then saved as: labdata_jun22.csv (I also have it in R format: labdata_jun22.RData)
+With this, I ran a R script in this repo and it worked! It’s a simple script that logs into our API key and gets access and authorization to get “live” data from ImmoScout.
